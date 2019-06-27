@@ -1,8 +1,40 @@
-const $first = document.querySelector('.main-view');
-const $second = document.querySelector('.settings-view');
+'use strict';
 
-$first.addEventListener('click', () => {
-  $first.classList.add('hidden');
-  $second.classList.remove('hidden');
+const $mainView = document.querySelector('.main-view');
+const $settingsView = document.querySelector('.settings-view');
+const $toggleViewButton = document.querySelectorAll('.toggle-btn');
+
+const VIEWS = { main: 0, settings: 1 };
+let selectedView = VIEWS.main;
+
+$toggleViewButton.forEach(($button) => {
+  $button.addEventListener('click', () => {
+    if (selectedView === VIEWS.main) {
+      $mainView.classList.add('hidden');
+      $settingsView.classList.remove('hidden');
+      selectedView = VIEWS.settings;
+    } else {
+      $settingsView.classList.add('hidden');
+      $mainView.classList.remove('hidden');
+      selectedView = VIEWS.main;
+    }
+  });
 });
+
+class Counter {
+  seconds = 0;
+  timer;
+
+  start() {
+    this.timer.setInterval(() => {
+      this.seconds++;
+    }, 1000);
+  }
+
+  stop() {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+  }
+}
 
