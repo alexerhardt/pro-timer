@@ -26,15 +26,30 @@ class Counter {
   timer;
 
   start() {
-    this.timer.setInterval(() => {
+    console.log('start clicked');
+    this.timer = setInterval(() => {
       this.seconds++;
+      this.render();
     }, 1000);
   }
 
   stop() {
+    console.log('stop clicked');
     if (this.timer) {
       clearInterval(this.timer);
     }
   }
+
+  render() {
+    document.querySelector('.counter').innerHTML = `${this.seconds}`;
+  }
 }
 
+let c = new Counter();
+document.querySelector('.start-btn').addEventListener('click', () => {
+  c.start();
+});
+
+document.querySelector('.stop-btn').addEventListener('click', () => {
+  c.stop();
+});
