@@ -39,7 +39,15 @@ class Counter {
   stop() {
     if (this.timer) {
       clearInterval(this.timer);
+    }
+  }
+
+  reset() {
+    if (this.timer) {
+      this.stop();
+      this.seconds = 0;
       this.timer = undefined;
+      this.render();
     }
   }
 
@@ -59,3 +67,9 @@ document.querySelector('.start-btn').addEventListener('click', () => {
 document.querySelector('.stop-btn').addEventListener('click', () => {
   c.stop();
 });
+
+document.querySelector('.reset-btn').addEventListener('click', () => {
+  c.reset();
+});
+
+
