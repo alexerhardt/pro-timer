@@ -1,13 +1,15 @@
 'use strict';
+const moment = require('moment');
+const momentDurationFormatSetup = require('moment-duration-format');
 
 const $mainView = document.querySelector('.main-view');
 const $settingsView = document.querySelector('.settings-view');
-const $toggleViewButton = document.querySelectorAll('.toggle-btn');
+const $toggleViewButtons = document.querySelectorAll('.toggle-btn');
 
 const VIEWS = { main: 0, settings: 1 };
 let selectedView = VIEWS.main;
 
-$toggleViewButton.forEach(($button) => {
+$toggleViewButtons.forEach(($button) => {
   $button.addEventListener('click', () => {
     if (selectedView === VIEWS.main) {
       $mainView.classList.add('hidden');
@@ -26,22 +28,26 @@ class Counter {
   timer;
 
   start() {
-    console.log('start clicked');
-    this.timer = setInterval(() => {
-      this.seconds++;
-      this.render();
-    }, 1000);
+    if (!this.timer) {
+      this.timer = setInterval(() => {
+        this.seconds++;
+        this.render();
+      }, 1000);
+    }
   }
 
   stop() {
-    console.log('stop clicked');
     if (this.timer) {
       clearInterval(this.timer);
+      this.timer = undefined;
     }
   }
 
   render() {
-    document.querySelector('.counter').innerHTML = `${this.seconds}`;
+    const m = moment.duration(this.seconds * 1000).format('HH : mm : ss', {
+      trim: false,
+    });
+    document.querySelector('.counter').innerHTML = m;
   }
 }
 

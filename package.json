@@ -42,7 +42,9 @@
     }
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "moment": "^2.24.0",
+    "moment-duration-format": "^2.3.2"
   },
   "devDependencies": {
     "@electron-forge/cli": "6.0.0-beta.39",
