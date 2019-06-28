@@ -1,23 +1,26 @@
-"use strict";
-const moment = require("moment");
-require("moment-duration-format");
+'use strict';
 
-const $mainView = document.querySelector(".main-view");
-const $settingsView = document.querySelector(".settings-view");
-const $toggleViewButtons = document.querySelectorAll(".toggle-btn");
+const { ipcRenderer } = require('electron');
+const moment = require('moment');
+require('moment-duration-format');
+
+const $mainView = document.querySelector('.main-view');
+const $settingsView = document.querySelector('.settings-view');
+const $toggleViewButtons = document.querySelectorAll('.toggle-btn');
 
 const VIEWS = { main: 0, settings: 1 };
 let selectedView = VIEWS.main;
 
 $toggleViewButtons.forEach($button => {
-  $button.addEventListener("click", () => {
+  $button.addEventListener('click', () => {
     if (selectedView === VIEWS.main) {
-      $mainView.classList.add("hidden");
-      $settingsView.classList.remove("hidden");
+      // change to display style
+      $mainView.classList.add('hidden');
+      $settingsView.classList.remove('hidden');
       selectedView = VIEWS.settings;
     } else {
-      $settingsView.classList.add("hidden");
-      $mainView.classList.remove("hidden");
+      $settingsView.classList.add('hidden');
+      $mainView.classList.remove('hidden');
       selectedView = VIEWS.main;
     }
   });
@@ -50,6 +53,7 @@ class Counter {
   reset() {
     if (this.timer) {
       this.stop();
+      this.startDate = undefined;
       this.seconds = 0;
       this.timer = undefined;
       this.render(this.seconds);
@@ -58,21 +62,25 @@ class Counter {
 }
 
 function timerRender(seconds) {
-  const m = moment.duration(seconds * 1000).format("HH : mm : ss", {
-    trim: false
+  const m = moment.duration(seconds * 1000).format('HH : mm : ss', {
+    trim: false,
   });
-  document.querySelector(".counter").innerHTML = m;
+  document.querySelector('.counter').innerHTML = m;
 }
 
 let c = new Counter(timerRender);
-document.querySelector(".start-btn").addEventListener("click", () => {
+document.querySelector('.start-btn').addEventListener('click', () => {
   c.start();
 });
 
-document.querySelector(".stop-btn").addEventListener("click", () => {
+document.querySelector('.stop-btn').addEventListener('click', () => {
   c.stop();
 });
 
-document.querySelector(".reset-btn").addEventListener("click", () => {
+document.querySelector('.reset-btn').addEventListener('click', () => {
   c.reset();
+});
+
+document.querySelector('.login-btn').addEventListener('click', () => {
+  ipcRenderer.send('do-login', 'do the login brah');
 });
