@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe5a4f8b-185e-41b0-9610-7107b10922ca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/renderer/counter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,17 +26,17 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1440">
-                  <caret line="60" column="14" selection-start-line="60" selection-start-column="14" selection-end-line="60" selection-end-column="14" />
+                <state relative-caret-position="271">
+                  <caret line="81" column="37" selection-start-line="81" selection-start-column="37" selection-end-line="81" selection-end-column="37" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/login.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1883">
-                  <caret column="45" selection-start-column="45" selection-end-column="45" />
+                <state relative-caret-position="408">
+                  <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
                 </state>
               </provider>
             </entry>
@@ -68,13 +67,13 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/renderer/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="72">
-                  <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
+                <state relative-caret-position="456">
+                  <caret line="51" column="2" selection-start-line="51" selection-start-column="2" selection-end-line="51" selection-end-column="2" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/renderer/counter.js">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="24">
@@ -131,10 +130,10 @@
         <option value="$PROJECT_DIR$/src/renderer.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/src/main/index.js" />
-        <option value="$PROJECT_DIR$/src/main/login.js" />
         <option value="$PROJECT_DIR$/src/renderer/index.js" />
         <option value="$PROJECT_DIR$/src/renderer/counter.js" />
+        <option value="$PROJECT_DIR$/src/main/index.js" />
+        <option value="$PROJECT_DIR$/src/main/login.js" />
       </list>
     </option>
   </component>
@@ -230,12 +229,12 @@
       <workItem from="1561630082263" duration="524000" />
       <workItem from="1561633549827" duration="3172000" />
       <workItem from="1561648172317" duration="11991000" />
-      <workItem from="1561730890318" duration="7330000" />
+      <workItem from="1561730890318" duration="8661000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23017000" />
+    <option name="totallyTimeSpent" value="24348000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -254,7 +253,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32923833" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32923833" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -290,31 +289,31 @@
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/index.js">
+    <entry file="file://$PROJECT_DIR$/src/renderer/counter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
-          <caret line="60" column="14" selection-start-line="60" selection-start-column="14" selection-end-line="60" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1883">
-          <caret column="45" selection-start-column="45" selection-end-column="45" />
+        <state relative-caret-position="24">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/renderer/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="3" column="31" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
+        <state relative-caret-position="456">
+          <caret line="51" column="2" selection-start-line="51" selection-start-column="2" selection-end-line="51" selection-end-column="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/renderer/counter.js">
+    <entry file="file://$PROJECT_DIR$/src/main/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="271">
+          <caret line="81" column="37" selection-start-line="81" selection-start-column="37" selection-end-line="81" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
         </state>
       </provider>
     </entry>

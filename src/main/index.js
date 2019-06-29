@@ -1,5 +1,6 @@
 const path = require('path');
 const { app, BrowserWindow, ipcMain } = require('electron');
+const windowStateKeeper = require('electron-window-state');
 const googleSignIn = require('./login');
 
 require('electron-reload')(__dirname);
@@ -15,14 +16,24 @@ if (require('electron-squirrel-startup')) {
 let mainWindow;
 
 const createWindow = () => {
+  // Load previous state
+  let mainWindowState = windowStateKeeper({
+    defaultWidth: 800,
+    defaultHeight: 600,
+  });
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
     webPreferences: {
       nodeIntegration: true,
     },
   });
+
+  mainWindowState.manage(mainWindow);
 
   // and load the index.html of the app.
   mainWindow.loadURL(
@@ -67,8 +78,9 @@ app.on('activate', () => {
 // code. You can also put them in separate files and import them here.
 ipcMain.on('do-login', (event, arg) => {
   console.log('do-login fired');
+  const [x, y] = mainWindow.getPosition();
   try {
-    googleSignIn();
+    googleSignIn({ x, y });
   } catch (e) {
     console.log('error on sign in');
   }

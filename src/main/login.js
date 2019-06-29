@@ -10,9 +10,11 @@ const GOOGLE_REDIRECT_URI = 'http://localhost';
 const GOOGLE_CLIENT_ID =
   '1083955259464-o6fqr0mqadfiol1n764l4l4ajmsgubpb.apps.googleusercontent.com';
 
-function signInWithPopup() {
+function signInWithPopup({ x, y }) {
   return new Promise((resolve, reject) => {
     const authWindow = new BrowserWindow({
+      x,
+      y,
       width: 500,
       height: 600,
       show: true,
@@ -94,8 +96,8 @@ async function fetchAccessTokens(code) {
   return response.data;
 }
 
-module.exports = async function googleSignIn() {
-  const code = await signInWithPopup();
+module.exports = async function googleSignIn(windowProps) {
+  const code = await signInWithPopup(windowProps);
   console.log('sign in complete, code: ', code);
   const tokens = await fetchAccessTokens(code);
   console.log('tokens retrieved, tokens: ', tokens);
