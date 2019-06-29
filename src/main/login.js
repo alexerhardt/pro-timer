@@ -9,6 +9,7 @@ const GOOGLE_PROFILE_URL = 'https://www.googleapis.com/userinfo/v2/me';
 const GOOGLE_REDIRECT_URI = 'http://localhost';
 const GOOGLE_CLIENT_ID =
   '1083955259464-o6fqr0mqadfiol1n764l4l4ajmsgubpb.apps.googleusercontent.com';
+const GOOGLE_CLIENT_SECRET = '4wjI5bhs0gWacuNaIGy_UWEO';
 
 function signInWithPopup({ x, y }) {
   return new Promise((resolve, reject) => {
@@ -24,7 +25,7 @@ function signInWithPopup({ x, y }) {
       response_type: 'code',
       redirect_uri: GOOGLE_REDIRECT_URI,
       client_id: GOOGLE_CLIENT_ID,
-      scope: 'profile email openid https://spreadsheets.google.com/feeds',
+      scope: 'profile email https://www.googleapis.com/auth/spreadsheets',
     };
     const authUrl = `${GOOGLE_AUTHORIZATION_URL}?${qs.stringify(urlParams)}`;
 
@@ -79,21 +80,26 @@ async function fetchGoogleProfile(accessToken) {
 }
 
 async function fetchAccessTokens(code) {
-  const response = await axios.post(
-    GOOGLE_TOKEN_URL,
-    qs.stringify({
-      code,
-      client_id: GOOGLE_CLIENT_ID,
-      redirect_uri: GOOGLE_REDIRECT_URI,
-      grant_type: 'authorization_code',
-    }),
-    {
+  let response;
+  const params = qs.stringify({
+    code: code,
+    client_id: GOOGLE_CLIENT_ID,
+    client_secret: GOOGLE_CLIENT_SECRET,
+    redirect_uri: GOOGLE_REDIRECT_URI,
+    grant_type: 'authorization_code',
+  });
+  console.log(params);
+  try {
+    response = await axios.post(GOOGLE_TOKEN_URL, params, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
-    }
-  );
-  return response.data;
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
 }
 
 module.exports = async function googleSignIn(windowProps) {
@@ -101,11 +107,10 @@ module.exports = async function googleSignIn(windowProps) {
   console.log('sign in complete, code: ', code);
   const tokens = await fetchAccessTokens(code);
   console.log('tokens retrieved, tokens: ', tokens);
-  const { id, email, name } = await fetchGoogleProfile(tokens.access_token);
+  const { id, email } = await fetchGoogleProfile(tokens.access_token);
   const providerUser = {
     uid: id,
     email,
-    displayName: name,
     idToken: tokens.id_token,
   };
 
