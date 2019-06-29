@@ -1,3 +1,4 @@
+const { BrowserWindow } = require('electron');
 const { parse } = require('url');
 const axios = require('axios');
 const qs = require('qs');
