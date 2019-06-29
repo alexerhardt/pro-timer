@@ -117,8 +117,8 @@ module.exports = async function googleSignIn(windowProps) {
     uid: id, // can probably remove this
     email,
     idToken: tokens.id_token, // can probably remove this
-    accessToken: tokens.id_token,
+    accessToken: tokens.access_token,
     tokenExpiry: tokens.expires_in,
-    refreshToken: tokens.expires_in,
+    refreshToken: tokens.refresh_token,
   };
 };

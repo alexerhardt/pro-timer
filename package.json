@@ -46,7 +46,8 @@
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^4.0.0",
     "electron-window-state": "^5.0.3",
-    "googleapis": "^40.0.0",
+    "google-auth-library": "0.10.0",
+    "googleapis": "19.0.0",
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
     "qs": "^6.7.0"
