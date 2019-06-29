@@ -1,6 +1,7 @@
 'use strict';
 
 const { ipcRenderer } = require('electron');
+const Store = require('electron-store');
 const moment = require('moment');
 require('moment-duration-format');
 const Counter = require('./counter');
@@ -48,5 +49,13 @@ document.querySelector('.reset-btn').addEventListener('click', () => {
 });
 
 document.querySelector('.login-btn').addEventListener('click', () => {
-  ipcRenderer.send('do-login', 'do the login brah');
+  ipcRenderer.send('do-login');
 });
+
+ipcRenderer.on('user-logged-in', () => {
+  console.log('renderer: user-logged-in fired');
+  const store = new Store();
+  console.log('user data', store.get('loggedInUserData'));
+});
+
+document.querySelector('.sync-btn').addEventListener('click', () => {});

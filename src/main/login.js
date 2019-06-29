@@ -72,26 +72,26 @@ function signInWithPopup({ x, y }) {
  * @returns {Promise}
  */
 async function fetchAccessTokens(code) {
-  try {
-    const response = await axios.post(
-      GOOGLE_TOKEN_URL,
-      {
-        code: code,
-        client_id: GOOGLE_CLIENT_ID,
-        client_secret: GOOGLE_CLIENT_SECRET,
-        redirect_uri: GOOGLE_REDIRECT_URI,
-        grant_type: 'authorization_code',
+  const response = await axios.post(
+    GOOGLE_TOKEN_URL,
+    qs.stringify({
+      code: code,
+      client_id: GOOGLE_CLIENT_ID,
+      client_secret: GOOGLE_CLIENT_SECRET,
+      redirect_uri: GOOGLE_REDIRECT_URI,
+      grant_type: 'authorization_code' + 'blabla',
+    }),
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
+    }
+  );
+  return response.data;
+  // } catch (e) {
+  //   console.error('fetchAccessTokens error: ' + e.response);
+  //   throw e;
+  // }
 }
 
 /**
@@ -101,6 +101,7 @@ async function fetchAccessTokens(code) {
  * @returns {Promise}
  */
 async function fetchGoogleProfile(accessToken) {
+  console.log('fetchGoogleProfile called, accessToken: ' + accessToken);
   try {
     const response = await axios.get(GOOGLE_PROFILE_URL, {
       headers: {
@@ -109,27 +110,25 @@ async function fetchGoogleProfile(accessToken) {
       },
     });
     return response.data;
-  } catch (error) {
-    throw error;
+  } catch (e) {
+    console.error('fetchGoogleProfile error: ' + e.message);
+    throw e;
   }
 }
 
 module.exports = async function googleSignIn(windowProps) {
-  try {
-    const code = await signInWithPopup(windowProps);
-    const tokens = await fetchAccessTokens(code);
-    const { id, email } = await fetchGoogleProfile(tokens.access_token);
+  // try {
+  const code = await signInWithPopup(windowProps);
+  const tokens = await fetchAccessTokens(code);
+  console.log('tokens: ' + tokens);
+  const { id, email } = await fetchGoogleProfile(tokens.access_token);
 
-    const loggedUserInfo = {
-      uid: id, // can probably remove this
-      email,
-      idToken: tokens.id_token, // can probably remove this
-      accessToken: tokens.id_token,
-      tokenExpiry: tokens.expires_in,
-      refreshToken: tokens.expires_in,
-    };
-    return loggedUserInfo;
-  } catch (error) {
-    throw error;
-  }
+  return {
+    uid: id, // can probably remove this
+    email,
+    idToken: tokens.id_token, // can probably remove this
+    accessToken: tokens.id_token,
+    tokenExpiry: tokens.expires_in,
+    refreshToken: tokens.expires_in,
+  };
 };

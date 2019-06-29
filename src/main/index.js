@@ -1,4 +1,5 @@
 const path = require('path');
+const util = require('util');
 const { app, BrowserWindow, ipcMain } = require('electron');
 const Store = require('electron-store');
 const windowStateKeeper = require('electron-window-state');
@@ -77,15 +78,17 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
-ipcMain.on('do-login', (event, arg) => {
+ipcMain.on('do-login', async (event, arg) => {
   console.log('do-login fired');
   const [x, y] = mainWindow.getPosition();
   try {
-    const loggedInUserData = googleSignIn({ x, y });
+    const loggedInUserData = await googleSignIn({ x, y });
     const store = new Store();
     store.set('loggedInUserData', loggedInUserData);
+    event.reply('user-logged-in');
   } catch (e) {
     // TODO: Need to create a banner here
-    console.log('error on sign in');
+    console.error('error on sign in: ' + util.inspect(e));
+    event.reply('login-error');
   }
 });
