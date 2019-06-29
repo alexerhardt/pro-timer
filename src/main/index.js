@@ -1,5 +1,6 @@
 const path = require('path');
 const { app, BrowserWindow, ipcMain } = require('electron');
+const Store = require('electron-store');
 const windowStateKeeper = require('electron-window-state');
 const googleSignIn = require('./login');
 
@@ -80,8 +81,11 @@ ipcMain.on('do-login', (event, arg) => {
   console.log('do-login fired');
   const [x, y] = mainWindow.getPosition();
   try {
-    googleSignIn({ x, y });
+    const loggedInUserData = googleSignIn({ x, y });
+    const store = new Store();
+    store.set('loggedInUserData', loggedInUserData);
   } catch (e) {
+    // TODO: Need to create a banner here
     console.log('error on sign in');
   }
 });

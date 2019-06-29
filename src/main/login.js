@@ -1,4 +1,5 @@
 const { BrowserWindow } = require('electron');
+const Store = require('electron-store');
 const { parse } = require('url');
 const axios = require('axios');
 const qs = require('qs');
@@ -11,6 +12,11 @@ const GOOGLE_CLIENT_ID =
   '1083955259464-o6fqr0mqadfiol1n764l4l4ajmsgubpb.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET = '4wjI5bhs0gWacuNaIGy_UWEO';
 
+/**
+ * Opens up a new window with the Google oAuth sign-in process
+ * @param { x, y } Object containing the coordinates of the new window
+ * @returns {Promise}
+ */
 function signInWithPopup({ x, y }) {
   return new Promise((resolve, reject) => {
     const authWindow = new BrowserWindow({
@@ -30,37 +36,27 @@ function signInWithPopup({ x, y }) {
     const authUrl = `${GOOGLE_AUTHORIZATION_URL}?${qs.stringify(urlParams)}`;
 
     function handleNavigation(url) {
-      console.log('handleNavigation called, url: ', url);
       const query = parse(url, true).query;
       if (query) {
         if (query.error) {
           reject(new Error(`There was an error: ${query.error}`));
         } else if (query.code) {
           // Login is complete
-          console.log('login complete');
           authWindow.removeAllListeners('closed');
           setImmediate(() => authWindow.close());
-
           // This is the authorization code we need to request tokens
           resolve(query.code);
         }
       }
     }
 
-    // authWindow.on('closed', () => {
-    //   // TODO: Handle this smoothly
-    //   throw new Error('Auth window was closed by user');
-    // });
-
     authWindow.webContents.on('will-navigate', (event, url) => {
-      console.log('will-navigate fired');
       handleNavigation(url);
     });
 
     authWindow.webContents.on(
       'did-get-redirect-request',
       (event, oldUrl, newUrl) => {
-        console.log('did-get-redirect-request fired');
         handleNavigation(newUrl);
       }
     );
@@ -69,51 +65,71 @@ function signInWithPopup({ x, y }) {
   });
 }
 
-async function fetchGoogleProfile(accessToken) {
-  const response = await axios.get(GOOGLE_PROFILE_URL, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-  return response.data;
+/**
+ * Uses the code returned through redirect by the Google API when the
+ * user grants permissions, and gets an access token for use in the app
+ * @param code
+ * @returns {Promise}
+ */
+async function fetchAccessTokens(code) {
+  try {
+    const response = await axios.post(
+      GOOGLE_TOKEN_URL,
+      {
+        code: code,
+        client_id: GOOGLE_CLIENT_ID,
+        client_secret: GOOGLE_CLIENT_SECRET,
+        redirect_uri: GOOGLE_REDIRECT_URI,
+        grant_type: 'authorization_code',
+      },
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 }
 
-async function fetchAccessTokens(code) {
-  let response;
-  const params = qs.stringify({
-    code: code,
-    client_id: GOOGLE_CLIENT_ID,
-    client_secret: GOOGLE_CLIENT_SECRET,
-    redirect_uri: GOOGLE_REDIRECT_URI,
-    grant_type: 'authorization_code',
-  });
-  console.log(params);
+/**
+ * Uses the access token obtained through the Google oAuth API and
+ * fetches basic data about the user for display in the app
+ * @param accessToken
+ * @returns {Promise}
+ */
+async function fetchGoogleProfile(accessToken) {
   try {
-    response = await axios.post(GOOGLE_TOKEN_URL, params, {
+    const response = await axios.get(GOOGLE_PROFILE_URL, {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     return response.data;
   } catch (error) {
-    console.log(error);
-    throw new Error(error);
+    throw error;
   }
 }
 
 module.exports = async function googleSignIn(windowProps) {
-  const code = await signInWithPopup(windowProps);
-  console.log('sign in complete, code: ', code);
-  const tokens = await fetchAccessTokens(code);
-  console.log('tokens retrieved, tokens: ', tokens);
-  const { id, email } = await fetchGoogleProfile(tokens.access_token);
-  const providerUser = {
-    uid: id,
-    email,
-    idToken: tokens.id_token,
-  };
+  try {
+    const code = await signInWithPopup(windowProps);
+    const tokens = await fetchAccessTokens(code);
+    const { id, email } = await fetchGoogleProfile(tokens.access_token);
 
-  // return mySignInFunction(providerUser);
-  console.log(providerUser);
+    const loggedUserInfo = {
+      uid: id, // can probably remove this
+      email,
+      idToken: tokens.id_token, // can probably remove this
+      accessToken: tokens.id_token,
+      tokenExpiry: tokens.expires_in,
+      refreshToken: tokens.expires_in,
+    };
+    return loggedUserInfo;
+  } catch (error) {
+    throw error;
+  }
 };
