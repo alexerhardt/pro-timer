@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe5a4f8b-185e-41b0-9610-7107b10922ca" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -35,8 +32,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/login.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="356">
-                  <caret line="125" column="16" selection-start-line="125" selection-start-column="16" selection-end-line="125" selection-end-column="16" />
+                <state relative-caret-position="332">
+                  <caret line="123" column="7" selection-start-line="123" selection-start-column="7" selection-end-line="123" selection-end-column="7" />
                 </state>
               </provider>
             </entry>
@@ -67,8 +64,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/renderer/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="438">
-                  <caret line="57" column="57" selection-start-line="57" selection-start-column="57" selection-end-line="57" selection-end-column="57" />
+                <state relative-caret-position="414">
+                  <caret line="56" selection-start-line="56" selection-end-line="56" />
                 </state>
               </provider>
             </entry>
@@ -89,8 +86,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/renderer/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="178">
-                  <caret line="41" selection-start-line="41" selection-end-line="41" />
+                <state relative-caret-position="634">
+                  <caret line="60" column="13" selection-start-line="60" selection-start-column="13" selection-end-line="60" selection-end-column="13" />
                 </state>
               </provider>
             </entry>
@@ -131,9 +128,9 @@
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/renderer/counter.js" />
-        <option value="$PROJECT_DIR$/src/renderer/index.js" />
-        <option value="$PROJECT_DIR$/src/main/login.js" />
         <option value="$PROJECT_DIR$/src/main/index.js" />
+        <option value="$PROJECT_DIR$/src/main/login.js" />
+        <option value="$PROJECT_DIR$/src/renderer/index.js" />
       </list>
     </option>
   </component>
@@ -229,12 +226,12 @@
       <workItem from="1561630082263" duration="524000" />
       <workItem from="1561633549827" duration="3172000" />
       <workItem from="1561648172317" duration="11991000" />
-      <workItem from="1561730890318" duration="19877000" />
+      <workItem from="1561730890318" duration="20127000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35564000" />
+    <option name="totallyTimeSpent" value="35814000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -265,13 +262,6 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/forge.config.js" />
     <entry file="file://$PROJECT_DIR$/src/login.html" />
-    <entry file="file://$PROJECT_DIR$/api_test/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/renderer/index.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
@@ -289,10 +279,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/renderer/index.js">
+    <entry file="file://$PROJECT_DIR$/src/main/login.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="57" column="57" selection-start-line="57" selection-start-column="57" selection-end-line="57" selection-end-column="57" />
+        <state relative-caret-position="332">
+          <caret line="123" column="7" selection-start-line="123" selection-start-column="7" selection-end-line="123" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api_test/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
@@ -303,10 +300,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/login.js">
+    <entry file="file://$PROJECT_DIR$/src/renderer/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="125" column="16" selection-start-line="125" selection-start-column="16" selection-end-line="125" selection-end-column="16" />
+        <state relative-caret-position="414">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
         </state>
       </provider>
     </entry>

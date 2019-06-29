@@ -79,7 +79,7 @@ async function fetchAccessTokens(code) {
       client_id: GOOGLE_CLIENT_ID,
       client_secret: GOOGLE_CLIENT_SECRET,
       redirect_uri: GOOGLE_REDIRECT_URI,
-      grant_type: 'authorization_code' + 'blabla',
+      grant_type: 'authorization_code',
     }),
     {
       headers: {
@@ -88,10 +88,6 @@ async function fetchAccessTokens(code) {
     }
   );
   return response.data;
-  // } catch (e) {
-  //   console.error('fetchAccessTokens error: ' + e.response);
-  //   throw e;
-  // }
 }
 
 /**
@@ -102,22 +98,16 @@ async function fetchAccessTokens(code) {
  */
 async function fetchGoogleProfile(accessToken) {
   console.log('fetchGoogleProfile called, accessToken: ' + accessToken);
-  try {
-    const response = await axios.get(GOOGLE_PROFILE_URL, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  } catch (e) {
-    console.error('fetchGoogleProfile error: ' + e.message);
-    throw e;
-  }
+  const response = await axios.get(GOOGLE_PROFILE_URL, {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data;
 }
 
 module.exports = async function googleSignIn(windowProps) {
-  // try {
   const code = await signInWithPopup(windowProps);
   const tokens = await fetchAccessTokens(code);
   console.log('tokens: ' + tokens);

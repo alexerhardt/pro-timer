@@ -54,8 +54,9 @@ document.querySelector('.login-btn').addEventListener('click', () => {
 
 ipcRenderer.on('user-logged-in', () => {
   console.log('renderer: user-logged-in fired');
+});
+
+document.querySelector('.sync-btn').addEventListener('click', () => {
   const store = new Store();
   console.log('user data', store.get('loggedInUserData'));
 });
-
-document.querySelector('.sync-btn').addEventListener('click', () => {});
