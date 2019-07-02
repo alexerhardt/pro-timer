@@ -87,21 +87,36 @@ document.querySelector('.sync-btn').addEventListener('click', async () => {
   //   refresh_token: refreshToken,
   // };
 
+  // const req = {
+  //   resource: {
+  //     properties: {
+  //       title: 'Yallo timer-sheet',
+  //     },
+  //     sheets: [
+  //       {
+  //         properties: {
+  //           title: 'timer-sheet',
+  //           gridProperties: {
+  //             columnCount: 6,
+  //             frozenRowCount: 1,
+  //           },
+  //         },
+  //       },
+  //     ],
+  //   },
+  // };
+
   const req = {
+    spreadsheetId: '1ZnGyOa2TPbWvcpmdSjqF6lOJFE4QONkJhXJdNQdYrJI' + 'caca',
+    range: 'Sheet1!A1:E1',
+    valueInputOption: 'RAW',
+    insertDataOption: 'INSERT_ROWS',
     resource: {
-      properties: {
-        title: 'Yallo timer-sheet',
-      },
-      sheets: [
-        {
-          properties: {
-            title: 'timer-sheet',
-            gridProperties: {
-              columnCount: 6,
-              frozenRowCount: 1,
-            },
-          },
-        },
+      range: 'Sheet1!A1:E1',
+      majorDimension: 'ROWS',
+      values: [
+        ['Door', '$15', '2', '3/15/2016'],
+        ['Engine', '$100', '1', '3/20/2016'],
       ],
     },
   };
@@ -109,7 +124,10 @@ document.querySelector('.sync-btn').addEventListener('click', async () => {
   const sheetService = google.sheets({ version: 'v4', auth });
 
   try {
-    console.log('res data: ' + (await sheetService.spreadsheets.create(req)));
+    let res = await sheetService.spreadsheets.values.append(req);
+    // this doesn't throw error properly
+    // need to figure out why the error is not working
+    console.log('res data: ' + JSON.stringify(res));
   } catch (e) {
     console.log('sheets create error: ' + JSON.stringify(e));
   }
