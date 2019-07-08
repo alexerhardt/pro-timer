@@ -1,7 +1,6 @@
 'use strict';
 
 const { ipcRenderer } = require('electron');
-const Store = require('electron-store');
 const moment = require('moment');
 require('moment-duration-format');
 const google = require('googleapis');
@@ -113,3 +112,29 @@ document.querySelector('.sync-btn').addEventListener('click', async () => {
     console.log(JSON.stringify(response, null, 2));
   });
 });
+
+// TODO: Move out
+const $loggedInContainer = document.querySelector(
+  '.settings-inner-container--is-logged-in'
+);
+const $loggedOutContainer = document.querySelector(
+  '.settings-inner-container--not-logged-in'
+);
+const $emailDisplay = document.querySelector('.email-display');
+
+function showLoggedInOptions(loginEmail) {
+  $loggedOutContainer.classList.add('hidden');
+  $emailDisplay.innerHTML = loginEmail;
+  $loggedInContainer.classList.remove('hidden');
+}
+
+function showLoggedOutOptions() {
+  $loggedInContainer.classList.add('hidden');
+  $emailDisplay.innerHTML = '';
+  $loggedOutContainer.classList.remove('hidden');
+}
+
+if (hasUserData()) {
+  const { email } = getUserData();
+  showLoggedInOptions(email);
+}

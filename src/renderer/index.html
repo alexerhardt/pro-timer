@@ -8,7 +8,7 @@
   <body>
     <div class="main-view">
       <button class="sync-btn">Sync</button>
-      <button class="toggle-btn">Toggle</button>
+      <button class="toggle-btn">Settings</button>
       <h1 class="counter">00 : 00 : 00</h1>
       <div>
         <h5>Project</h5>
@@ -23,8 +23,21 @@
       </div>
     </div>
     <div class="settings-view hidden">
-      <button class="toggle-btn">Toggle</button>
-      <button class="login-btn">Login</button>
+      <button class="toggle-btn">Back</button>
+      <div class="settings-outer-container">
+        <div class="settings-inner-container--is-logged-in hidden">
+          <h5 class="email-display"></h5>
+          <button class="logout-btn">Logout</button>
+          <h5>Spreadsheet ID</h5>
+          <input type="text" class="sheet-id-input" />
+          <h5>Sheet Name</h5>
+          <input type="text" class="sheet-name-input" />
+        </div>
+        <div class="settings-inner-container--not-logged-in">
+          <h5>You must log in to view sync settings</h5>
+          <button class="login-btn">Login with Google</button>
+        </div>
+      </div>
     </div>
   </body>
   <script type="text/javascript">
