@@ -1,5 +1,7 @@
 'use strict';
 
+const util = require('util');
+
 const { ipcRenderer } = require('electron');
 const moment = require('moment');
 require('moment-duration-format');
@@ -106,13 +108,47 @@ document.querySelector('.sync-btn').addEventListener('click', async () => {
   // Tried Promises, but they don't work
   sheetService.spreadsheets.values.append(req, (err, response) => {
     if (err) {
-      console.log(err);
+      console.log('append err' + util.inspect(err));
+      // if err.code === 404, show modal
+      if (err.code === 401) {
+        showPopup('Authentication error. Please log in again.');
+      } else if (err.code === 404) {
+        showPopup(
+          'Spreadsheet or sheet not found. Please review the details' +
+            ' in settings'
+        );
+      } else {
+        showPopup('There was an unknown error; could not update data');
+      }
       return;
     }
     console.log(JSON.stringify(response, null, 2));
   });
 });
 
+const $messagePopup = document.querySelector('.message-popup');
+const $messageText = document.querySelector('.message-popup__text');
+
+function showPopup(text) {
+  $messagePopup.classList.remove('hidden');
+  $messageText.innerHTML = text;
+}
+
+function dismissPopup() {
+  $messagePopup.classList.add('hidden');
+  $messageText.innerHTML = '';
+}
+
+document
+  .querySelector('.message-popup__dismiss')
+  .addEventListener('click', () => {
+    dismissPopup();
+  });
+
+/**
+ * Logic for Login rendering
+ * @type {Element}
+ */
 // TODO: Move out
 const $loggedInContainer = document.querySelector(
   '.settings-inner-container--is-logged-in'
