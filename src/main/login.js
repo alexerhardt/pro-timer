@@ -1,5 +1,4 @@
 const { BrowserWindow } = require('electron');
-const Store = require('electron-store');
 const { parse } = require('url');
 const axios = require('axios');
 const qs = require('qs');

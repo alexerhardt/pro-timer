@@ -3,10 +3,10 @@
 const { ipcRenderer } = require('electron');
 const Store = require('electron-store');
 const moment = require('moment');
-const google = require('googleapis');
-const googleAuth = require('google-auth-library');
 require('moment-duration-format');
+const google = require('googleapis');
 const Counter = require('./counter');
+const { getUserData, hasUserData } = require('../services/login-helpers');
 
 const $mainView = document.querySelector('.main-view');
 const $settingsView = document.querySelector('.settings-view');
@@ -67,9 +67,16 @@ const GOOGLE_CLIENT_ID =
 const GOOGLE_CLIENT_SECRET = '4wjI5bhs0gWacuNaIGy_UWEO';
 
 document.querySelector('.sync-btn').addEventListener('click', async () => {
-  const store = new Store();
-  console.log('user data', store.get('loggedInUserData'));
-  const { accessToken, refreshToken } = store.get('loggedInUserData');
+  // const store = new Store();
+  // console.log('user data', store.get('loggedInUserData'));
+  // const { accessToken, refreshToken } = store.get('loggedInUserData');
+  if (!hasUserData()) {
+    // TODO: Change to modal
+    console.error('User data not present; cannot log in');
+    return;
+  }
+  const { accessToken, refreshToken } = getUserData();
+
   const auth = new google.auth.OAuth2(
     GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET,
@@ -79,32 +86,6 @@ document.querySelector('.sync-btn').addEventListener('click', async () => {
     access_token: accessToken,
     refresh_token: refreshToken,
   });
-
-  // var authClient = new googleAuth();
-  // var auth = new authClient.OAuth2();
-  // auth.credentials = {
-  //   access_token: accessToken,
-  //   refresh_token: refreshToken,
-  // };
-
-  // const req = {
-  //   resource: {
-  //     properties: {
-  //       title: 'Yallo timer-sheet',
-  //     },
-  //     sheets: [
-  //       {
-  //         properties: {
-  //           title: 'timer-sheet',
-  //           gridProperties: {
-  //             columnCount: 6,
-  //             frozenRowCount: 1,
-  //           },
-  //         },
-  //       },
-  //     ],
-  //   },
-  // };
 
   const req = {
     spreadsheetId: '1ZnGyOa2TPbWvcpmdSjqF6lOJFE4QONkJhXJdNQdYrJI' + 'caca',
@@ -123,12 +104,12 @@ document.querySelector('.sync-btn').addEventListener('click', async () => {
 
   const sheetService = google.sheets({ version: 'v4', auth });
 
-  try {
-    let res = await sheetService.spreadsheets.values.append(req);
-    // this doesn't throw error properly
-    // need to figure out why the error is not working
-    console.log('res data: ' + JSON.stringify(res));
-  } catch (e) {
-    console.log('sheets create error: ' + JSON.stringify(e));
-  }
+  // Tried Promises, but they don't work
+  sheetService.spreadsheets.values.append(req, (err, response) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log(JSON.stringify(response, null, 2));
+  });
 });

@@ -1,7 +1,7 @@
 const path = require('path');
 const util = require('util');
 const { app, BrowserWindow, ipcMain } = require('electron');
-const Store = require('electron-store');
+const { saveUserData } = require('../services/login-helpers');
 const windowStateKeeper = require('electron-window-state');
 const googleSignIn = require('./login');
 
@@ -83,8 +83,7 @@ ipcMain.on('do-login', async (event, arg) => {
   const [x, y] = mainWindow.getPosition();
   try {
     const loggedInUserData = await googleSignIn({ x, y });
-    const store = new Store();
-    store.set('loggedInUserData', loggedInUserData);
+    saveUserData(loggedInUserData);
     event.reply('user-logged-in');
   } catch (e) {
     // TODO: Need to create a banner here
