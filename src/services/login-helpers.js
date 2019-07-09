@@ -9,6 +9,6 @@ module.exports.getUserData = function() {
   return store.get('loggedInUserData');
 };
 
-module.exports.hasUserData = function() {
+module.exports.userDataInStore = function() {
   return store.has('loggedInUserData');
 };

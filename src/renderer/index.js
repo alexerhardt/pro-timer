@@ -5,10 +5,10 @@ const moment = require('moment');
 require('moment-duration-format');
 const ui = require('./ui');
 const Counter = require('./counter');
-const { getUserData, hasUserData } = require('../services/login-helpers');
+const { getUserData, userDataInStore } = require('../services/login-helpers');
 const { saveDataToSheets } = require('./sheets');
 
-if (hasUserData()) {
+if (userDataInStore()) {
   const { email } = getUserData();
   ui.showLoggedInOptions(email);
 }

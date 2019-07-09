@@ -1,7 +1,7 @@
 const util = require('util');
 
 const google = require('googleapis');
-const { hasUserData, getUserData } = require('../services/login-helpers');
+const { userDataInStore, getUserData } = require('../services/login-helpers');
 const ui = require('./ui');
 const messages = require('./messages');
 
@@ -11,7 +11,7 @@ const GOOGLE_CLIENT_ID =
 const GOOGLE_CLIENT_SECRET = '4wjI5bhs0gWacuNaIGy_UWEO';
 
 module.exports.saveDataToSheets = async function() {
-  if (!hasUserData()) {
+  if (!userDataInStore()) {
     // TODO: Change to modal
     console.error('User data not present; cannot log in');
     return;
