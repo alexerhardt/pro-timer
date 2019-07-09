@@ -3,6 +3,7 @@ const util = require('util');
 const google = require('googleapis');
 const { hasUserData, getUserData } = require('../services/login-helpers');
 const ui = require('./ui');
+const messages = require('./messages');
 
 const GOOGLE_REDIRECT_URI = 'http://localhost';
 const GOOGLE_CLIENT_ID =
@@ -50,14 +51,11 @@ module.exports.saveDataToSheets = async function() {
     if (err) {
       console.log('append err' + util.inspect(err));
       if (err.code === 401) {
-        ui.showPopup('Authentication error. Please log in again.');
+        ui.showPopup(messages.authError);
       } else if (err.code === 404) {
-        ui.showPopup(
-          'Spreadsheet or sheet not found. Please review the details' +
-            ' in settings'
-        );
+        ui.showPopup(messages.notFound);
       } else {
-        ui.showPopup('There was an unknown error; could not update data');
+        ui.showPopup(messages.unknownAPIError);
       }
       return;
     }
