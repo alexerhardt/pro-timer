@@ -30,18 +30,51 @@ module.exports.saveDataToSheets = async function() {
 
   const sheetService = getGoogleSheetsService();
 
-  // Tried Promises, but they don't work
-  sheetService.spreadsheets.values.append(req, (err, response) => {
-    if (err) {
-      handleSheetsError(err);
-      return;
-    }
-    console.log(JSON.stringify(response, null, 2));
-  });
+  // const timeStamps = getAllTimeStamps(sheetService);
+  // console.log('timeStamps: ', timeStamps);
+  getAllTimeStamps(sheetService)
+    .then(res => {
+      console.log('timeStamps res: ', res);
+      const index = res.values[0].findIndex(elt => elt === 1234);
+      if (index === -1) {
+        console.log('we append');
+      } else {
+        console.log('we edit');
+      }
+    })
+    .catch(e => handleSheetsError(e));
+
+  // // Tried Promises, but they don't work
+  // sheetService.spreadsheets.values.append(req, (err, response) => {
+  //   if (err) {
+  //     handleSheetsError(err);
+  //     return;
+  //   }
+  //   console.log(JSON.stringify(response, null, 2));
+  // });
 };
 
+function getAllTimeStamps(sheetService) {
+  const req = {
+    spreadsheetId: '1ZnGyOa2TPbWvcpmdSjqF6lOJFE4QONkJhXJdNQdYrJI',
+    range: 'Sheet1!A:A',
+    majorDimension: 'COLUMNS',
+    valueRenderOption: 'UNFORMATTED_VALUE',
+    dateTimeRenderOption: 'FORMATTED_STRING',
+  };
+
+  return new Promise((resolve, reject) => {
+    sheetService.spreadsheets.values.get(req, (err, response) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(response);
+    });
+  });
+}
+
 function handleSheetsError(err) {
-  console.log('append err' + util.inspect(err));
+  console.log('sheets call err' + util.inspect(err));
   if (err.code === 401) {
     ui.showPopup(messages.authError);
   } else if (err.code === 404) {
