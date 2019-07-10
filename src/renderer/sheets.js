@@ -40,8 +40,10 @@ module.exports.saveDataToSheets = async function() {
         console.log('we append');
       } else {
         console.log('we edit');
+        return writeToSheet(sheetService, index);
       }
     })
+    .then(res => console.log('update op a-ok, res: ', res))
     .catch(e => handleSheetsError(e));
 
   // // Tried Promises, but they don't work
@@ -65,6 +67,26 @@ function getAllTimeStamps(sheetService) {
 
   return new Promise((resolve, reject) => {
     sheetService.spreadsheets.values.get(req, (err, response) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(response);
+    });
+  });
+}
+
+function writeToSheet(sheetService, index) {
+  const req = {
+    spreadsheetId: '1ZnGyOa2TPbWvcpmdSjqF6lOJFE4QONkJhXJdNQdYrJI',
+    range: 'Sheet1!A' + (index + 1),
+    valueInputOption: 'RAW',
+    resource: {
+      values: [[1234, 'Yallo', 'Yalloooo!']],
+    },
+  };
+
+  return new Promise((resolve, reject) => {
+    sheetService.spreadsheets.values.update(req, (err, response) => {
       if (err) {
         reject(err);
       }
