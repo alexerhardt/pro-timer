@@ -1,33 +1,17 @@
 const util = require('util');
 
-const google = require('googleapis');
-const { userDataInStore, getUserData } = require('../services/login-helpers');
+const { getGoogleSheetsService } = require('../services/google-auth');
 const ui = require('./ui');
 const messages = require('./messages');
 
-const GOOGLE_REDIRECT_URI = 'http://localhost';
-const GOOGLE_CLIENT_ID =
-  '1083955259464-o6fqr0mqadfiol1n764l4l4ajmsgubpb.apps.googleusercontent.com';
-const GOOGLE_CLIENT_SECRET = '4wjI5bhs0gWacuNaIGy_UWEO';
-
 module.exports.saveDataToSheets = async function() {
-  if (!userDataInStore()) {
-    // TODO: Change to modal
-    console.error('User data not present; cannot log in');
-    return;
-  }
-  const { accessToken, refreshToken } = getUserData();
+  // Move this out to its own auth helper
+  // End move
 
-  const auth = new google.auth.OAuth2(
-    GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET,
-    GOOGLE_REDIRECT_URI
-  );
-
-  auth.setCredentials({
-    access_token: accessToken,
-    refresh_token: refreshToken,
-  });
+  // Read from sheets
+  // Find an id in first column
+  // If found, write to that column
+  // Else, append at the end
 
   const req = {
     spreadsheetId: '1ZnGyOa2TPbWvcpmdSjqF6lOJFE4QONkJhXJdNQdYrJI',
@@ -44,21 +28,25 @@ module.exports.saveDataToSheets = async function() {
     },
   };
 
-  const sheetService = google.sheets({ version: 'v4', auth });
+  const sheetService = getGoogleSheetsService();
 
   // Tried Promises, but they don't work
   sheetService.spreadsheets.values.append(req, (err, response) => {
     if (err) {
-      console.log('append err' + util.inspect(err));
-      if (err.code === 401) {
-        ui.showPopup(messages.authError);
-      } else if (err.code === 404) {
-        ui.showPopup(messages.notFound);
-      } else {
-        ui.showPopup(messages.unknownAPIError);
-      }
+      handleSheetsError(err);
       return;
     }
     console.log(JSON.stringify(response, null, 2));
   });
 };
+
+function handleSheetsError(err) {
+  console.log('append err' + util.inspect(err));
+  if (err.code === 401) {
+    ui.showPopup(messages.authError);
+  } else if (err.code === 404) {
+    ui.showPopup(messages.notFound);
+  } else {
+    ui.showPopup(messages.unknownAPIError);
+  }
+}

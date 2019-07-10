@@ -5,7 +5,7 @@ const moment = require('moment');
 require('moment-duration-format');
 const ui = require('./ui');
 const Counter = require('./counter');
-const { getUserData, userDataInStore } = require('../services/login-helpers');
+const { getUserData, userDataInStore } = require('../services/local-storage');
 const { saveDataToSheets } = require('./sheets');
 
 if (userDataInStore()) {

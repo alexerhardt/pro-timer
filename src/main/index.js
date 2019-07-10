@@ -1,7 +1,7 @@
 const path = require('path');
 const util = require('util');
 const { app, BrowserWindow, ipcMain } = require('electron');
-const { saveUserData } = require('../services/login-helpers');
+const { saveUserData } = require('../services/local-storage');
 const windowStateKeeper = require('electron-window-state');
 const googleSignIn = require('./login');
 
