@@ -25,7 +25,18 @@ function timerRender(seconds) {
   document.querySelector('.counter').innerHTML = m;
 }
 
-let c = new Counter(timerRender);
+const counterEventHandlers = {
+  onStart: function() {
+    document.querySelector('.project-name-input').disabled = true;
+    document.querySelector('.task-name-input').disabled = true;
+  },
+  onReset: function() {
+    document.querySelector('.project-name-input').disabled = false;
+    document.querySelector('.task-name-input').disabled = false;
+  },
+};
+
+let c = new Counter(timerRender, counterEventHandlers);
 document.querySelector('.start-btn').addEventListener('click', () => {
   c.start();
 });
@@ -50,4 +61,6 @@ document
   .querySelector('.message-popup__dismiss')
   .addEventListener('click', ui.dismissPopup);
 
-document.querySelector('.sync-btn').addEventListener('click', saveDataToSheets);
+document.querySelector('.sync-btn').addEventListener('click', () => {
+  saveDataToSheets(c.startDate);
+});

@@ -68,3 +68,19 @@ module.exports.showLoggedOutOptions = function() {
   $emailDisplay.innerHTML = '';
   $loggedOutContainer.classList.remove('hidden');
 };
+
+/****************************************************************************
+ *
+ *  SYNC DISABLE
+ *
+ ***************************************************************************/
+
+const $syncButton = document.querySelector('.sync-btn');
+
+module.exports.disableSyncButton = function() {
+  $syncButton.disabled = true;
+};
+
+module.exports.enableSyncButton = function() {
+  $syncButton.disabled = false;
+};

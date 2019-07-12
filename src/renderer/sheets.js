@@ -13,20 +13,32 @@ const messages = require('./messages');
  *
  * @returns {Promise}
  */
-module.exports.saveDataToSheets = async function() {
+module.exports.saveDataToSheets = function(timestamp) {
   const sheetService = getGoogleSheetsService();
+
+  ui.disableSyncButton();
+  const spreadsheetId = document.querySelector('.sheet-id-input').value;
+  const sheetName = document.querySelector('.sheet-id-name').value;
+  const projectName = document.querySelector('.project-name-input').value;
+  const taskName = document.querySelector('.task-name-input').value;
 
   getAllTimeStamps(sheetService)
     .then(res => {
-      const index = res.values[0].findIndex(elt => elt === 123456);
+      const index = res.values[0].findIndex(elt => elt === timestamp);
       if (index === -1) {
         return appendToSheet(sheetService);
       } else {
         return writeToSheet(sheetService, index);
       }
     })
-    .then(res => console.log('update op a-ok, res: ', res))
-    .catch(e => handleSheetsError(e));
+    .then(res => {
+      console.log('update op a-ok, res: ', res);
+      ui.enableSyncButton();
+    })
+    .catch(e => {
+      handleSheetsError(e);
+      ui.enableSyncButton();
+    });
 };
 
 /**
