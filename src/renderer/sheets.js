@@ -85,8 +85,12 @@ function writeToSheet(sheetService, index) {
     },
   };
 
+  return wrapInPromise(sheetService.spreadsheets.values.update, req);
+}
+
+function wrapInPromise(apiCall, request) {
   return new Promise((resolve, reject) => {
-    sheetService.spreadsheets.values.update(req, (err, response) => {
+    apiCall(request, (err, response) => {
       if (err) {
         reject(err);
       }
