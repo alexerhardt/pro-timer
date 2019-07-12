@@ -1,61 +1,39 @@
 const util = require('util');
 
 const { getGoogleSheetsService } = require('../services/google-auth');
+const { wrapInPromise } = require('../services/utils');
 const ui = require('./ui');
 const messages = require('./messages');
 
+/**
+ * Saves the given timer data to Google Sheets
+ * First reads the given sheet's data; if an entry with that timestamp /
+ * project name / task combination already exists, then it updates that;
+ * else, it appends the entry at the end of the sheet.
+ *
+ * @returns {Promise}
+ */
 module.exports.saveDataToSheets = async function() {
-  // Move this out to its own auth helper
-  // End move
-
-  // Read from sheets
-  // Find an id in first column
-  // If found, write to that column
-  // Else, append at the end
-
-  const req = {
-    spreadsheetId: '1ZnGyOa2TPbWvcpmdSjqF6lOJFE4QONkJhXJdNQdYrJI',
-    range: 'Sheet1!A1:E1',
-    valueInputOption: 'RAW',
-    insertDataOption: 'INSERT_ROWS',
-    resource: {
-      range: 'Sheet1!A1:E1',
-      majorDimension: 'ROWS',
-      values: [
-        ['Door', '$15', '2', '3/15/2016'],
-        ['Engine', '$100', '1', '3/20/2016'],
-      ],
-    },
-  };
-
   const sheetService = getGoogleSheetsService();
 
-  // const timeStamps = getAllTimeStamps(sheetService);
-  // console.log('timeStamps: ', timeStamps);
   getAllTimeStamps(sheetService)
     .then(res => {
-      console.log('timeStamps res: ', res);
-      const index = res.values[0].findIndex(elt => elt === 1234);
+      const index = res.values[0].findIndex(elt => elt === 123456);
       if (index === -1) {
-        console.log('we append');
+        return appendToSheet(sheetService);
       } else {
-        console.log('we edit');
         return writeToSheet(sheetService, index);
       }
     })
     .then(res => console.log('update op a-ok, res: ', res))
     .catch(e => handleSheetsError(e));
-
-  // // Tried Promises, but they don't work
-  // sheetService.spreadsheets.values.append(req, (err, response) => {
-  //   if (err) {
-  //     handleSheetsError(err);
-  //     return;
-  //   }
-  //   console.log(JSON.stringify(response, null, 2));
-  // });
 };
 
+/**
+ * Reads the first column of the sheet, returning all entry ids
+ * @param sheetService
+ * @returns {Promise}
+ */
 function getAllTimeStamps(sheetService) {
   const req = {
     spreadsheetId: '1ZnGyOa2TPbWvcpmdSjqF6lOJFE4QONkJhXJdNQdYrJI',
@@ -65,16 +43,15 @@ function getAllTimeStamps(sheetService) {
     dateTimeRenderOption: 'FORMATTED_STRING',
   };
 
-  return new Promise((resolve, reject) => {
-    sheetService.spreadsheets.values.get(req, (err, response) => {
-      if (err) {
-        reject(err);
-      }
-      resolve(response);
-    });
-  });
+  return wrapInPromise(sheetService.spreadsheets.values.get, req);
 }
 
+/**
+ * Updates the sheet service at the specified row index
+ * @param sheetService
+ * @param index
+ * @returns {Promise}
+ */
 function writeToSheet(sheetService, index) {
   const req = {
     spreadsheetId: '1ZnGyOa2TPbWvcpmdSjqF6lOJFE4QONkJhXJdNQdYrJI',
@@ -88,15 +65,23 @@ function writeToSheet(sheetService, index) {
   return wrapInPromise(sheetService.spreadsheets.values.update, req);
 }
 
-function wrapInPromise(apiCall, request) {
-  return new Promise((resolve, reject) => {
-    apiCall(request, (err, response) => {
-      if (err) {
-        reject(err);
-      }
-      resolve(response);
-    });
-  });
+/**
+ * Appends an entry to the last line of the sheet
+ * @param sheetService
+ * @returns {Promise}
+ */
+function appendToSheet(sheetService) {
+  const req = {
+    spreadsheetId: '1ZnGyOa2TPbWvcpmdSjqF6lOJFE4QONkJhXJdNQdYrJI',
+    range: 'Sheet1',
+    valueInputOption: 'RAW',
+    insertDataOption: 'INSERT_ROWS',
+    resource: {
+      values: [[12345, 'AppendTest', 'AppendTest']],
+    },
+  };
+
+  return wrapInPromise(sheetService.spreadsheets.values.append, req);
 }
 
 function handleSheetsError(err) {
