@@ -62,5 +62,5 @@ document
   .addEventListener('click', ui.dismissPopup);
 
 document.querySelector('.sync-btn').addEventListener('click', () => {
-  saveDataToSheets(c.startDate);
+  saveDataToSheets(c.startDate, c.seconds);
 });

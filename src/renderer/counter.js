@@ -9,6 +9,7 @@ module.exports = class Counter {
     this.eventHandlers = eventHandlers;
   }
 
+  // TODO: Need to fix this logic; it does not allow restarts
   start() {
     if (!this.timer) {
       this.startDate = moment.now();

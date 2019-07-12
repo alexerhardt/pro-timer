@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe5a4f8b-185e-41b0-9610-7107b10922ca" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/renderer/counter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/counter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/renderer/sheets.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/sheets.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/renderer/ui.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/renderer/ui.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,8 +24,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/renderer/index.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1103">
-                  <caret line="64" column="31" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
+                <state relative-caret-position="544">
+                  <caret line="64" column="40" selection-start-line="64" selection-start-column="40" selection-end-line="64" selection-end-column="40" />
                 </state>
               </provider>
             </entry>
@@ -45,8 +42,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/renderer/index.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="316">
-                  <caret line="16" column="48" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
+                <state relative-caret-position="21">
+                  <caret line="14" column="34" lean-forward="true" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
                 </state>
               </provider>
             </entry>
@@ -64,19 +61,19 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/renderer/sheets.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="528">
-                  <caret line="22" column="67" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
+                <state relative-caret-position="720">
+                  <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/renderer/counter.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-209">
+                <state relative-caret-position="96">
                   <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
                 </state>
               </provider>
@@ -124,8 +121,8 @@
         <option value="$PROJECT_DIR$/src/services/utils.js" />
         <option value="$PROJECT_DIR$/src/renderer/ui.js" />
         <option value="$PROJECT_DIR$/src/renderer/counter.js" />
-        <option value="$PROJECT_DIR$/src/renderer/index.js" />
         <option value="$PROJECT_DIR$/src/renderer/index.html" />
+        <option value="$PROJECT_DIR$/src/renderer/index.js" />
         <option value="$PROJECT_DIR$/src/renderer/sheets.js" />
       </list>
     </option>
@@ -228,12 +225,12 @@
       <workItem from="1562693965362" duration="841000" />
       <workItem from="1562700245770" duration="3836000" />
       <workItem from="1562768766712" duration="7284000" />
-      <workItem from="1562921147066" duration="7052000" />
+      <workItem from="1562921147066" duration="8875000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67588000" />
+    <option name="totallyTimeSpent" value="69411000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -333,29 +330,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/renderer/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1103">
-          <caret line="64" column="31" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/renderer/counter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-209">
-          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        <state relative-caret-position="544">
+          <caret line="64" column="40" selection-start-line="64" selection-start-column="40" selection-end-line="64" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/renderer/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="16" column="48" selection-start-line="16" selection-start-column="48" selection-end-line="16" selection-end-column="48" />
+        <state relative-caret-position="21">
+          <caret line="14" column="34" lean-forward="true" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/renderer/sheets.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="22" column="67" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
+        <state relative-caret-position="720">
+          <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/renderer/counter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
         </state>
       </provider>
     </entry>

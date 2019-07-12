@@ -13,22 +13,28 @@ const messages = require('./messages');
  *
  * @returns {Promise}
  */
-module.exports.saveDataToSheets = function(timestamp) {
+module.exports.saveDataToSheets = function(timestamp, seconds) {
   const sheetService = getGoogleSheetsService();
 
+  // TODO: Move out all these UI elements out; add as parameters to function
   ui.disableSyncButton();
-  const spreadsheetId = document.querySelector('.sheet-id-input').value;
-  const sheetName = document.querySelector('.sheet-id-name').value;
-  const projectName = document.querySelector('.project-name-input').value;
-  const taskName = document.querySelector('.task-name-input').value;
+  const params = {
+    timestamp,
+    seconds,
+    spreadsheetId: document.querySelector('.sheet-id-input').value,
+    sheetName: document.querySelector('.sheet-name-input').value,
+    projectName: document.querySelector('.project-name-input').value,
+    taskName: document.querySelector('.task-name-input').value,
+  };
+  console.log('saveData params: ' + util.inspect(params));
 
-  getAllTimeStamps(sheetService)
+  getAllTimeStamps(sheetService, params)
     .then(res => {
-      const index = res.values[0].findIndex(elt => elt === timestamp);
-      if (index === -1) {
-        return appendToSheet(sheetService);
+      params.rowToEdit = res.values[0].findIndex(elt => elt === timestamp);
+      if (params.rowToEdit === -1) {
+        return appendToSheet(sheetService, params);
       } else {
-        return writeToSheet(sheetService, index);
+        return writeToSheet(sheetService, params);
       }
     })
     .then(res => {
@@ -46,9 +52,9 @@ module.exports.saveDataToSheets = function(timestamp) {
  * @param sheetService
  * @returns {Promise}
  */
-function getAllTimeStamps(sheetService) {
+function getAllTimeStamps(sheetService, params) {
   const req = {
-    spreadsheetId: '1ZnGyOa2TPbWvcpmdSjqF6lOJFE4QONkJhXJdNQdYrJI',
+    spreadsheetId: params.spreadsheetId,
     range: 'Sheet1!A:A',
     majorDimension: 'COLUMNS',
     valueRenderOption: 'UNFORMATTED_VALUE',
@@ -64,13 +70,15 @@ function getAllTimeStamps(sheetService) {
  * @param index
  * @returns {Promise}
  */
-function writeToSheet(sheetService, index) {
+function writeToSheet(sheetService, params) {
   const req = {
-    spreadsheetId: '1ZnGyOa2TPbWvcpmdSjqF6lOJFE4QONkJhXJdNQdYrJI',
-    range: 'Sheet1!A' + (index + 1),
+    spreadsheetId: params.spreadsheetId,
+    range: 'Sheet1!A' + (params.rowToEdit + 1),
     valueInputOption: 'RAW',
     resource: {
-      values: [[1234, 'Yallo', 'Yalloooo!']],
+      values: [
+        [params.timestamp, params.projectName, params.taskName, params.seconds],
+      ],
     },
   };
 
@@ -82,14 +90,16 @@ function writeToSheet(sheetService, index) {
  * @param sheetService
  * @returns {Promise}
  */
-function appendToSheet(sheetService) {
+function appendToSheet(sheetService, params) {
   const req = {
-    spreadsheetId: '1ZnGyOa2TPbWvcpmdSjqF6lOJFE4QONkJhXJdNQdYrJI',
+    spreadsheetId: params.spreadsheetId,
     range: 'Sheet1',
     valueInputOption: 'RAW',
     insertDataOption: 'INSERT_ROWS',
     resource: {
-      values: [[12345, 'AppendTest', 'AppendTest']],
+      values: [
+        [params.timestamp, params.projectName, params.taskName, params.seconds],
+      ],
     },
   };
 
