@@ -5,11 +5,16 @@ const moment = require('moment');
 require('moment-duration-format');
 const ui = require('./ui');
 const Counter = require('./counter');
-const { getUserData, userDataInStore } = require('../services/local-storage');
+const constants = require('../constants');
+const {
+  saveData,
+  getData,
+  isDataInStore,
+} = require('../services/local-storage');
 const { saveDataToSheets } = require('./sheets');
 
-if (userDataInStore()) {
-  const { email } = getUserData();
+if (isDataInStore(constants.USER_DATA_KEY)) {
+  const { email } = getData(constants.USER_DATA_KEY);
   ui.showLoggedInOptions(email);
 }
 
@@ -64,3 +69,22 @@ document
 document.querySelector('.sync-btn').addEventListener('click', () => {
   saveDataToSheets(c.startDate, c.seconds);
 });
+
+const $sheetIdInput = document.querySelector('.sheet-id-input');
+const $sheetNameInput = document.querySelector('.sheet-name-input');
+
+$sheetIdInput.addEventListener('change', ev => {
+  saveData(constants.SPREADSHEET_ID_KEY, ev.target.value);
+});
+
+$sheetNameInput.addEventListener('change', ev => {
+  saveData(constants.SHEET_NAME_KEY, ev.target.value);
+});
+
+if (isDataInStore(constants.SPREADSHEET_ID_KEY)) {
+  $sheetIdInput.value = getData(constants.SPREADSHEET_ID_KEY);
+}
+
+if (isDataInStore(constants.SHEET_NAME_KEY)) {
+  $sheetNameInput.value = getData(constants.SHEET_NAME_KEY);
+}

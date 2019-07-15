@@ -10,23 +10,29 @@ const messages = require('./messages');
  * First reads the given sheet's data; if an entry with that timestamp /
  * project name / task combination already exists, then it updates that;
  * else, it appends the entry at the end of the sheet.
- *
- * @returns {Promise}
  */
 module.exports.saveDataToSheets = function(timestamp, seconds) {
-  const sheetService = getGoogleSheetsService();
+  const spreadsheetId = document.querySelector('.sheet-id-input').value;
+  const sheetName = document.querySelector('.sheet-name-input').value;
+  if (!spreadsheetId || !sheetName) {
+    ui.showPopup(messages.missingSpreadsheetDetails);
+    return;
+  }
 
   // TODO: Move out all these UI elements out; add as parameters to function
   ui.disableSyncButton();
+
   const params = {
     timestamp,
     seconds,
-    spreadsheetId: document.querySelector('.sheet-id-input').value,
-    sheetName: document.querySelector('.sheet-name-input').value,
+    spreadsheetId,
+    sheetName,
     projectName: document.querySelector('.project-name-input').value,
     taskName: document.querySelector('.task-name-input').value,
   };
   console.log('saveData params: ' + util.inspect(params));
+
+  const sheetService = getGoogleSheetsService();
 
   getAllTimeStamps(sheetService, params)
     .then(res => {
