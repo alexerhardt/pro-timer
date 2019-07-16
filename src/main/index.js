@@ -1,12 +1,11 @@
 const path = require('path');
 const util = require('util');
 const { app, BrowserWindow, ipcMain } = require('electron');
+require('electron-reload')(path.join(__dirname, '..'));
 const constants = require('../constants');
 const { saveData } = require('../services/local-storage');
 const windowStateKeeper = require('electron-window-state');
 const googleSignIn = require('./login');
-
-require('electron-reload')(__dirname);
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -21,8 +20,8 @@ let mainWindow;
 const createWindow = () => {
   // Load previous state
   let mainWindowState = windowStateKeeper({
-    defaultWidth: 800,
-    defaultHeight: 600,
+    defaultWidth: 640,
+    defaultHeight: 360,
   });
 
   // Create the browser window.
