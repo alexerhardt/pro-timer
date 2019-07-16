@@ -32,8 +32,8 @@ module.exports.saveDataToSheets = function(timestamp, seconds) {
     seconds,
     spreadsheetId,
     sheetName,
-    projectName: document.querySelector('.project-name-input').value,
-    taskName: document.querySelector('.task-name-input').value,
+    projectName: document.querySelector('.project-input__project').value,
+    taskName: document.querySelector('.project-input__task').value,
   };
   console.log('saveData params: ' + util.inspect(params));
 

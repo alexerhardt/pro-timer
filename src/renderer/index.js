@@ -32,12 +32,12 @@ function timerRender(seconds) {
 
 const counterEventHandlers = {
   onStart: function() {
-    document.querySelector('.project-name-input').disabled = true;
-    document.querySelector('.task-name-input').disabled = true;
+    document.querySelector('.project-input__project').disabled = true;
+    document.querySelector('.project-input__task').disabled = true;
   },
   onReset: function() {
-    document.querySelector('.project-name-input').disabled = false;
-    document.querySelector('.task-name-input').disabled = false;
+    document.querySelector('.project-input__project').disabled = false;
+    document.querySelector('.project-input__task').disabled = false;
   },
 };
 
