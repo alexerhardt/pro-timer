@@ -42,14 +42,26 @@
     </div>
     <div class="settings-view hidden">
       <button class="toggle-btn">Back</button>
-      <div class="settings-outer-container">
+      <div class="container settings-outer-container">
         <div class="settings-inner-container--is-logged-in hidden">
-          <h5 class="email-display"></h5>
-          <button class="logout-btn">Logout</button>
-          <h5>Spreadsheet ID</h5>
-          <input type="text" class="sheet-id-input" />
-          <h5>Sheet Name</h5>
-          <input type="text" class="sheet-name-input" />
+          <div class="columns">
+            <div class="column col-9 col-mx-auto login-info">
+              <h5 class="email-display">Logged In</h5>
+              <button class="logout-btn">Log Out</button>
+            </div>
+          </div>
+          <form>
+            <div class="form-group col-9 col-mx-auto mb-3">
+              <label for="id-input">Spreadsheet ID</label>
+              <input type="text" class="form-input sheet-id-input"
+                     id="id-input" />
+            </div>
+            <div class="form-group col-9 col-mx-auto">
+              <label for="name-input">Sheet Name</label>
+              <input type="text" class="form-input sheet-name-input"
+                     id="name-input" />
+            </div>
+          </form>
         </div>
         <div class="settings-inner-container--not-logged-in">
           <h5>You must log in to view sync settings</h5>
