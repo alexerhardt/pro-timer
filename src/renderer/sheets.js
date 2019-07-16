@@ -12,6 +12,11 @@ const messages = require('./messages');
  * else, it appends the entry at the end of the sheet.
  */
 module.exports.saveDataToSheets = function(timestamp, seconds) {
+  if (!seconds) {
+    ui.showPopup(messages.timerNotSet);
+    return;
+  }
+
   const spreadsheetId = document.querySelector('.sheet-id-input').value;
   const sheetName = document.querySelector('.sheet-name-input').value;
   if (!spreadsheetId || !sheetName) {
