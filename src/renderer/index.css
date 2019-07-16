@@ -8,8 +8,17 @@ body {
 
 .counter {
     font-size: 4rem;
-    margin-bottom: 2rem;
-    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0.75rem;
+}
+
+.pt-3 {
+    padding-top: 1rem;
+}
+
+.px-3 {
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .fas {

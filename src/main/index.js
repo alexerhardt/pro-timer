@@ -28,8 +28,8 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     x: mainWindowState.x,
     y: mainWindowState.y,
-    width: mainWindowState.width,
-    height: mainWindowState.height,
+    width: 640,
+    height: 360,
     webPreferences: {
       nodeIntegration: true,
     },
