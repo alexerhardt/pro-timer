@@ -14,12 +14,10 @@
 }
 
 body {
-    background-color: #c3d9ff;
-    /*font-family: 'Open Sans Light', sans-serif !important;*/
+    background-color: rgba(54, 54, 54, 1);
+    color: rgba(239, 239, 239);
     font-family: 'Raleway', sans-serif !important;
 }
-
-
 
 .hidden {
     display: none;
@@ -42,6 +40,10 @@ body {
 
 .settings-outer-container > div {
     width: 100%;
+}
+
+.shadow-on-bg {
+    text-shadow: 3px 3px 3px rgba(102,102,102,1);
 }
 
 .back-button-container {
