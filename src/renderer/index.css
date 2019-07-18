@@ -1,14 +1,34 @@
+@font-face {
+    font-family: 'Open Sans Light';
+    src: url('../assets/OpenSans-Light.ttf');
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('../assets/Raleway-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Digital7';
+    src: url('../assets/digital-7-mono.ttf');
+}
+
 body {
     background-color: #c3d9ff;
+    /*font-family: 'Open Sans Light', sans-serif !important;*/
+    font-family: 'Raleway', sans-serif !important;
 }
+
+
 
 .hidden {
     display: none;
 }
 
 .counter {
-    font-size: 4rem;
-    margin-bottom: 1.5rem;
+    font-family: 'Digital7', monospace;
+    font-size: 5rem;
+    margin-bottom: 0.5rem;
     margin-top: 0.75rem;
 }
 
@@ -22,6 +42,10 @@ body {
 
 .settings-outer-container > div {
     width: 100%;
+}
+
+.back-button-container {
+    height: 10vh;
 }
 
 .login-info {
@@ -49,10 +73,14 @@ body {
     display: inline;
 }
 
-.fas {
+.toggle-btn,
+.sync-btn {
     cursor: pointer;
-    float: right;
     font-size: 1.4rem;
+}
+
+.timer-controls-container i {
+    margin-right: 0.35rem;
 }
 
 .message-popup {

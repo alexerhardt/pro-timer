@@ -24,7 +24,7 @@ $toggleViewButtons.forEach($button => {
 });
 
 function timerRender(seconds) {
-  const m = moment.duration(seconds * 1000).format('HH : mm : ss', {
+  const m = moment.duration(seconds * 1000).format('HH:mm:ss', {
     trim: false,
   });
   document.querySelector('.counter').innerHTML = m;

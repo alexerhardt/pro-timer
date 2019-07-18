@@ -78,9 +78,11 @@ module.exports.showLoggedOutOptions = function() {
 const $syncButton = document.querySelector('.sync-btn');
 
 module.exports.disableSyncButton = function() {
+  $syncButton.classList.add('fa-spin');
   $syncButton.disabled = true;
 };
 
 module.exports.enableSyncButton = function() {
+  $syncButton.classList.remove('fa-spin');
   $syncButton.disabled = false;
 };
