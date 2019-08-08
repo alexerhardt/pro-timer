@@ -41,7 +41,9 @@ You will also need to indicate the *sheet* within that spreadsheet you'd like to
 
 Electron.js
 
-ES6 JavaScript -- no UI framework
+ES6 JavaScript -- no JS UI framework
+
+Spectre.css
 
 Electron Forge
 
