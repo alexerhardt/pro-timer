@@ -32,7 +32,7 @@ Your platform executables will be added to the `out` folder, you can then simply
 
 In order to enable sync, you will first need to log in (it's handled securely through Google's API), then you'll need to create a Google Sheet through the Sheets interface (want to learn a nifty new trick? type `sheets.new` in your browser). **You then need to grab the ID of your spreadsheet**. It is the part that comes after the /d/ in the Sheet URL, ex:
 
-https://docs.google.com/spreadsheets/d/**1X4e_eg4_-vXQfl1FqZINsdTH1i6SWTHxCFOlAMAt0M**/edit#gid=0
+`https://docs.google.com/spreadsheets/d/`**1X4e_eg4_-vXQfl1FqZINsdTH1i6SWTHxCFOlAMAt0M**`/edit#gid=0`
 
 You will also need to indicate the *sheet* within that spreadsheet you'd like to save to (ex: Sheet 1)
 
