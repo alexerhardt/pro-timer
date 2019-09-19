@@ -18,13 +18,13 @@ uploads them to Google Sheets.
 
 ### Running (Development)
 
-`yarn run start`
+`yarn start`
 
 ### Bundling for Final Use
 
 After installing for development, run:
 
-`yarn run bundle`
+`yarn package`
 
 Your platform executables will be added to the `out` folder, you can then simply install them on your computer.
 
