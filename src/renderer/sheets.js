@@ -85,15 +85,22 @@ function writeToSheet(sheetService, params) {
   const req = {
     spreadsheetId: params.spreadsheetId,
     range: 'Sheet1!A' + (params.rowToEdit + 1),
-    valueInputOption: 'RAW',
+    valueInputOption: 'USER_ENTERED',
     resource: {
       values: [
-        [params.timestamp, params.projectName, params.taskName, params.seconds],
+        [params.timestamp, params.projectName, params.taskName, duration],
       ],
     },
   };
 
   return wrapInPromise(sheetService.spreadsheets.values.update, req);
+}
+
+function secondsToDuration(seconds) {
+  const h = Math.trunc(seconds / 3600);
+  const m = Math.trunc((seconds - 3600 * h) / 60);
+  const s = seconds - 3600 * h - 60 * m;
+  return `${h}:${m}:${s}`;
 }
 
 /**
@@ -102,14 +109,17 @@ function writeToSheet(sheetService, params) {
  * @returns {Promise}
  */
 function appendToSheet(sheetService, params) {
+  console.log('seconds: ', params.seconds);
+  const duration = secondsToDuration(params.seconds);
+  console.log('duration: ', duration);
   const req = {
     spreadsheetId: params.spreadsheetId,
     range: 'Sheet1',
-    valueInputOption: 'RAW',
+    valueInputOption: 'USER_ENTERED',
     insertDataOption: 'INSERT_ROWS',
     resource: {
       values: [
-        [params.timestamp, params.projectName, params.taskName, params.seconds],
+        [params.timestamp, params.projectName, params.taskName, duration],
       ],
     },
   };
