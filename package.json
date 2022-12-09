@@ -52,7 +52,7 @@
     "moment": "^2.24.0",
     "moment-duration-format": "^2.3.2",
     "normalize.css": "^8.0.1",
-    "qs": "^6.7.0",
+    "qs": "^6.7.3",
     "spectre.css": "^0.5.8"
   },
   "devDependencies": {
